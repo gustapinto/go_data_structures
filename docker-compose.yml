@@ -1,0 +1,9 @@
+version: "3.6"
+
+services:
+  go:
+    image: golang:1.18
+    tty: true
+    volumes:
+      - ./:/go_data_structures:Z
+    working_dir: /go_data_structures
