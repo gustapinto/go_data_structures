@@ -74,3 +74,19 @@ func TestTraversePreOrder(t *testing.T) {
 		t.Errorf("Failed! Expected %v, got %v", expected, values)
 	}
 }
+
+func TestSearch(t *testing.T) {
+	expected := &BinaryTree[int]{&BinaryTree[int]{nil, -2, nil}, 2, nil}
+
+	tree := Insert(nil, 4)
+	Insert(tree, -10)
+	Insert(tree, 6)
+	Insert(tree, 2)
+	Insert(tree, -2)
+
+	foundTree := Search(tree, 2)
+
+	if !reflect.DeepEqual(foundTree, expected) {
+		t.Errorf("Failed! Expected %v, got %v", expected, foundTree)
+	}
+}

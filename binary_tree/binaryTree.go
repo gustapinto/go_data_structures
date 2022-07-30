@@ -89,3 +89,17 @@ func TraversePreOrder[T Orderable](tree *BinaryTree[T]) (values []T) {
 
 	return values
 }
+
+// Search procura um valor dentro dos galhos da árvore binária, retornando o galho que possuir
+// o valor buscado
+func Search[T Orderable](tree *BinaryTree[T], value T) *BinaryTree[T] {
+	if value == tree.Value {
+		return tree
+	}
+
+	if value < tree.Value {
+		return Search(tree.LeftNode, value)
+	}
+
+	return Search(tree.RightNode, value)
+}
