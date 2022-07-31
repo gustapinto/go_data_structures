@@ -115,3 +115,28 @@ func TestPopMustRemoveAItem(t *testing.T) {
 		t.Errorf("Failed! Expected size to be 1, got %d", size)
 	}
 }
+
+func TestTraverseMustReturnAEmptySliceOnNil(t *testing.T) {
+	expected := []any{}
+	values := Traverse(nil)
+
+	if !reflect.DeepEqual(values, expected) {
+		t.Errorf("Failed! Expected %v, got %v", expected, values)
+	}
+}
+
+func TestTraverseMustReturnAllValuesInSta(t *testing.T) {
+	expected := []any{10, 3, 4, 5, 6}
+
+	stack := Push(nil, 6)
+	Push(stack, 5)
+	Push(stack, 4)
+	Push(stack, 3)
+	Push(stack, 10)
+
+	values := Traverse(stack)
+
+	if !reflect.DeepEqual(values, expected) {
+		t.Errorf("Failed! Expected %v, got %v", expected, values)
+	}
+}

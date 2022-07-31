@@ -49,4 +49,25 @@ func Pop(stack *StackNode) any {
 
 		return value
 	}
+
+	value := stack.Value
+	*stack = *stack.Next
+
+	return value
+}
+
+// Traverse retorna uma slice com todos os valores na pilha
+func Traverse(stack *StackNode) (values []any) {
+	if stack == nil {
+		return []any{}
+	}
+
+	temp := stack
+
+	for temp != nil {
+		values = append(values, temp.Value)
+		temp = temp.Next
+	}
+
+	return values
 }
