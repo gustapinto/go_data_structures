@@ -5,6 +5,19 @@ import (
 	"testing"
 )
 
+func TestNewQueue(t *testing.T) {
+	expected := &QueueNode{
+		Value: 10,
+		Next: nil,
+	}
+
+	queue := NewQueue(10)
+
+	if !reflect.DeepEqual(queue, expected) {
+		t.Errorf("Failed! Expected %v, got %v", expected, queue)
+	}
+}
+
 func TestSizeMustReturnZeroOnNil(t *testing.T) {
 	size := Size(nil)
 

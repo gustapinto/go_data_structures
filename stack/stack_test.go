@@ -5,6 +5,19 @@ import (
 	"testing"
 )
 
+func TestNewStack(t *testing.T) {
+	expected := &StackNode{
+		Value: 10,
+		Next: nil,
+	}
+
+	stack := NewStack(10)
+
+	if !reflect.DeepEqual(stack, expected) {
+		t.Errorf("Failed! Expected %v, got %v", expected, stack)
+	}
+}
+
 func TestSizeMustBeZeroOnNil(t *testing.T) {
 	size := Size(nil)
 

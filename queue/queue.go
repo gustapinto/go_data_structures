@@ -5,6 +5,11 @@ type QueueNode struct {
 	Next  *QueueNode
 }
 
+// NewQueue atua como um alias para Push(nil, valor)
+func NewQueue(value any) *QueueNode {
+	return Push(nil, value)
+}
+
 // Size retorna o tamanho da fila
 func Size(queue *QueueNode) uint {
 	if queue == nil {

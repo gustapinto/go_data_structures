@@ -5,6 +5,11 @@ type StackNode struct {
 	Next  *StackNode
 }
 
+// NewStack atua como um alias para Push(nil, valor)
+func NewStack(value any) *StackNode {
+	return Push(nil, value)
+}
+
 // Size retorna o tamanho atual da pilha
 func Size(stack *StackNode) (count uint) {
 	if stack == nil {

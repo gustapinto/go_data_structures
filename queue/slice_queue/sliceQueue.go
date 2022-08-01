@@ -6,6 +6,11 @@ type SliceQueue struct {
 	Values []any
 }
 
+// NewSliceQueue atua como um alias para Push(nil, valor)
+func NewSliceQueue(value any) *SliceQueue {
+	return Push(nil, value)
+}
+
 // Size retorna o tamanho atual da fila
 func Size(queue *SliceQueue) uint {
 	if queue == nil {

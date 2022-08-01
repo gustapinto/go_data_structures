@@ -5,6 +5,18 @@ import (
 	"testing"
 )
 
+func TestNewSliceQueue(t *testing.T) {
+	expected := &SliceQueue{
+		Values: []any{10},
+	}
+
+	queue := NewSliceQueue(10)
+
+	if !reflect.DeepEqual(queue, expected) {
+		t.Errorf("Failed! Expected %v, got %v", expected, queue)
+	}
+}
+
 func TestSizeMustReturnZeroOnNil(t *testing.T) {
 	size := Size(nil)
 
