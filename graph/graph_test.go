@@ -8,7 +8,7 @@ import (
 func TestNewGraph(t *testing.T) {
 	expected := &Graph{
 		Nodes: []*GraphNode{
-			&GraphNode{Value: 10},
+			{Value: 10},
 		},
 	}
 
@@ -19,11 +19,31 @@ func TestNewGraph(t *testing.T) {
 	}
 }
 
+func TestSizeMustBeZeroOnNil(t *testing.T) {
+	size := Size(nil)
+
+	if size != 0 {
+		t.Errorf("Failed! Expected size to be 0, got %d", size)
+	}
+}
+
+func TestSizeMustReturnTheActualSize(t *testing.T) {
+	graph := NewGraph(&GraphNode{10})
+	AddNode(graph, &GraphNode{4})
+	AddNode(graph, &GraphNode{6})
+
+	size := Size(graph)
+
+	if size != 3 {
+		t.Errorf("Failed! Expected size to be 3, got %d", size)
+	}
+}
+
 func TestAddNodeMustAddANode(t *testing.T) {
 	expected := &Graph{
 		Nodes: []*GraphNode{
-			&GraphNode{Value: 10},
-			&GraphNode{Value: 2},
+			{Value: 10},
+			{Value: 2},
 		},
 	}
 

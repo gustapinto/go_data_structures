@@ -14,6 +14,15 @@ func NewGraph(node *GraphNode) *Graph {
 	return AddNode(nil, node)
 }
 
+// Size retorna o tamanho atual do grafo
+func Size(graph *Graph) uint {
+	if graph == nil {
+		return 0
+	}
+
+	return uint(len(graph.Nodes))
+}
+
 // AddNode adiciona um novo nó no grafo
 func AddNode(graph *Graph, node *GraphNode) *Graph {
 	if graph == nil {
