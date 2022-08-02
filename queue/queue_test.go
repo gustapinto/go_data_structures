@@ -8,7 +8,7 @@ import (
 func TestNewQueue(t *testing.T) {
 	expected := &QueueNode{
 		Value: 10,
-		Next: nil,
+		Next:  nil,
 	}
 
 	queue := NewQueue(10)

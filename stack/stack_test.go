@@ -8,7 +8,7 @@ import (
 func TestNewStack(t *testing.T) {
 	expected := &StackNode{
 		Value: 10,
-		Next: nil,
+		Next:  nil,
 	}
 
 	stack := NewStack(10)
