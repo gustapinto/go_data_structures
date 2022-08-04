@@ -35,6 +35,26 @@ func TestConatins(t *testing.T) {
 	}
 }
 
+func TestSizeMustBeZeroOnNil(t *testing.T) {
+	size := Size[int](nil)
+	if size != 0 {
+		t.Errorf("Failed! Expected size to be zero, got %d", size)
+	}
+}
+
+func TestSize(t *testing.T) {
+	set := Create(10)
+	Push(set, 4)
+	Push(set, 6)
+	Push(set, -2)
+	Push(set, 2)
+
+	size := Size(set)
+	if size != 5 {
+		t.Errorf("Failed! Expected size to be 5, got %d", size)
+	}
+}
+
 func TestPushMustAddAItemToTheSet(t *testing.T) {
 	expected := &Set[int]{Values: map[int]bool{10: true, 4: true, 6: true}}
 
@@ -215,5 +235,83 @@ func TestDifferenceMustReturnTheElementsFromTheFirstSetThatDontExistInTheSecond(
 	difference := Difference(set1, set2)
 	if !reflect.DeepEqual(difference, expected) {
 		t.Errorf("Failed! Expected %v, got %v", expected, difference)
+	}
+}
+
+func TestIsSubsetMustReturnFalseOnAnyNil(t *testing.T) {
+	set := Create(10)
+
+	isSubset := IsSubset(nil, set)
+	if isSubset {
+		t.Errorf("Failed! Expected false, got %v", isSubset)
+	}
+
+	isSubset2 := IsSubset(set, nil)
+	if isSubset2 {
+		t.Errorf("Failed! Expected false, got %v", isSubset2)
+	}
+}
+
+func TestIsSusetMustReturnFalseWhenSet1IsGreaterThanSet2(t *testing.T) {
+	set1 := Create(10)
+	Push(set1, 4)
+
+	set2 := Create(10)
+
+	isSubset := IsSubset(set1, set2)
+	if isSubset {
+		t.Errorf("Failed! Expected %v to not be a subset of %v", set1, set2)
+	}
+}
+
+func TestIsSubsetMustReturnTrueWhenSet1IsSubsetOfSet2(t *testing.T) {
+	set1 := Create(10)
+	Push(set1, 4)
+
+	set2 := Create(10)
+	Push(set2, 4)
+	Push(set2, 6)
+	Push(set2, -2)
+
+	isSubset := IsSubset(set1, set2)
+	if !isSubset {
+		t.Errorf("Failed! Expected %v to be subset of %v", set1, set2)
+	}
+}
+
+func TestIsDisjointMustReturnFalseOnAnyNil(t *testing.T) {
+	isDisjoint := IsDisjoint[int](nil, nil)
+	if isDisjoint {
+		t.Errorf("Failed! Expected to be false on nil, got %v", isDisjoint)
+	}
+}
+
+func TestIsDisjointMustReturnFalseIfAnyItemIsPresentOnBothSets(t *testing.T) {
+	set1 := Create(10)
+	Push(set1, 4)
+	Push(set1, 6)
+	Push(set1, -2)
+
+	set2 := Create(4)
+
+	isDisjoint := IsDisjoint(set1, set2)
+	if isDisjoint {
+		t.Errorf("Failed! Expected %v and %v to do not be disjoint", set1, set2)
+	}
+}
+
+func TestIsDisjointMustReturnTrueWhenBothSetsDoesNotShareAnyItems(t *testing.T) {
+	set1 := Create(10)
+	Push(set1, 4)
+	Push(set1, 6)
+
+	set2 := Create(20)
+	Push(set2, 8)
+	Push(set2, 12)
+	Push(set2, -4)
+
+	isDisjoint := IsDisjoint(set1, set2)
+	if !isDisjoint {
+		t.Errorf("Failed! Expected %v and %v to be disjoint", set1, set2)
 	}
 }

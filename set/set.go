@@ -22,6 +22,15 @@ func Contains[T comparable](set *Set[T], value T) bool {
 	return exists
 }
 
+// Size retorna a quantidade de itens no set
+func Size[T comparable](set *Set[T]) uint {
+	if set == nil {
+		return 0
+	}
+
+	return uint(len(set.Values))
+}
+
 // Push adiciona um novo elemento no conjunto, apenas se ele não existir ainda
 func Push[T comparable](set *Set[T], value T) *Set[T] {
 	if set == nil {
@@ -49,7 +58,7 @@ func Traverse[T comparable](set *Set[T]) (values []T) {
 		return []T{}
 	}
 
-	for value, _ := range set.Values {
+	for value := range set.Values {
 		values = append(values, value)
 	}
 
@@ -66,10 +75,10 @@ func Union[T comparable](set1, set2 *Set[T]) (union *Set[T]) {
 		return set1
 	}
 
-	for _, value := range Traverse(set1) {
+	for value := range set1.Values {
 		union = Push(union, value)
 	}
-	for _, value := range Traverse(set2) {
+	for value := range set2.Values {
 		union = Push(union, value)
 	}
 
@@ -83,7 +92,7 @@ func Intersection[T comparable](set1, set2 *Set[T]) (intersection *Set[T]) {
 		return nil
 	}
 
-	for _, value := range Traverse(set1) {
+	for value := range set1.Values {
 		if Contains(set2, value) {
 			intersection = Push(intersection, value)
 		}
@@ -101,11 +110,46 @@ func Difference[T comparable](set1, set2 *Set[T]) (difference *Set[T]) {
 		return set1
 	}
 
-	for _, value := range Traverse(set1) {
+	for value := range set1.Values {
 		if !Contains(set2, value) {
 			difference = Push(difference, value)
 		}
 	}
 
 	return difference
+}
+
+// IsSubset verifica se todos os elementos do primeiro conjunto existem no
+// segundo
+func IsSubset[T comparable](set1, set2 *Set[T]) bool {
+	if set1 == nil || set2 == nil {
+		return false
+	}
+	if Size(set1) > Size(set2) {
+		return false
+	}
+
+	for value := range set1.Values {
+		if !Contains(set2, value) {
+			return false
+		}
+	}
+
+	return true
+}
+
+// IsDisjoint verifica se todos os elementos do primeiro conjunto não existem
+// no segundo
+func IsDisjoint[T comparable](set1, set2 *Set[T]) bool {
+	if set1 == nil || set2 == nil {
+		return false
+	}
+
+	for value := range set1.Values {
+		if Contains(set2, value) {
+			return false
+		}
+	}
+
+	return true
 }
