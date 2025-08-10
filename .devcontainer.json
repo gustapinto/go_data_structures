@@ -4,11 +4,15 @@
     "./docker-compose.yml"
   ],
   "service": "go",
-  "workspaceFolder": "/go_jwt",
+  "workspaceFolder": "/go_data_structures",
   "runServices": [
     "go"
   ],
-  "extensions": [
-    "golang.go"
-  ]
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "golang.go"
+      ]
+    }
+  }
 }
